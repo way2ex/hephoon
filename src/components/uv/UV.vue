@@ -50,7 +50,7 @@ export default {
       menuShow: false,
       // 配置请求的json路径
       config: {
-        baseUrl: '/static/data/',
+        baseUrl: '/hephoon/dist/static/data/',
         urls: [
           'UVPrint/all.json',
           'UVPrint/yakeli.json',

@@ -52,7 +52,7 @@ export default {
       menuShow: false,
       // 配置请求的json路径
       config: {
-        baseUrl: '/static/data/',
+        baseUrl: '/hephoon/dist/static/data/',
         urls: [
           'jiguang/yingyong.json',
           'jiguang/yangpin.json'

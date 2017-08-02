@@ -40,7 +40,7 @@ export default {
     this.className = this.classMap[this.$route.params.classtype]
     this.imgUrl = decodeURIComponent(this.$route.params.url)
     $.ajax({
-      url: '/static/data/UVDetail/description.json',
+      url: '/hephoon/dist/static/data/UVDetail/description.json',
       type: 'get',
       dataType: 'json',
       success: function (data) {
