@@ -10,7 +10,7 @@
     <div class="main-content">
       <div class="figure-wrap">
         <figure>
-          <img :src="imgUrl" alt="className">
+          <img :src="'/hephoon/dist'+imgUrl" alt="className">
         </figure>
       </div>
       <div class="desc-wrap">

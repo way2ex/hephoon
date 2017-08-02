@@ -15,7 +15,7 @@
       <section><span>微信：</span><span> zou930823</span></section>
       <section>
         加我微信请扫描二维码:</br></br>
-        <img src="/static/img/scancode.677b8fb.jpg" alt="和风科技-微信">
+        <img src="/hephoon/dist/static/img/scancode.677b8fb.jpg" alt="和风科技-微信">
       </section>
     </div>
   </div>

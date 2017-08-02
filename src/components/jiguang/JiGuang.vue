@@ -26,7 +26,7 @@
       </div>
       <el-row class="wrapper">
         <el-card class="figure-wrapper" v-for="(img, index) in currentImgGroup" :key="index">
-          <img :src="img.url" :alt="img.name">
+          <img :src="'/hephoon/dist'+img.url" :alt="img.name">
           <figcaption>{{img.name}}</figcaption>
         </el-card>
       </el-row>

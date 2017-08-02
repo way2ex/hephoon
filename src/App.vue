@@ -40,7 +40,7 @@
       <div class="text-center">
         <ul class="footer-nav list-unstyled">
           <li><router-link to="/">网站首页</router-link></li>&nbsp;|
-          <li> <router-link to="/uv">UV打印产品</router-link></li>&nbsp;|
+          <li><router-link to="/uv">UV打印产品</router-link></li>&nbsp;|
           <li><router-link to="/jiguang">激光镭雕</router-link></li>&nbsp;|
           <li><router-link to="/about">关于我们</router-link></li>&nbsp;|
           <li><router-link to="/contact">联系我们</router-link></li>

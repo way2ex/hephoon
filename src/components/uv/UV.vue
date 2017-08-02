@@ -24,7 +24,7 @@
     <el-col :span="18" class="main-wrapper">
       <el-row class="wrapper">
         <el-card class="figure-wrapper" v-for="(img, index) in currentImgGroup" :key="index">
-          <img :src="img.url" :alt="img.name" @click="goToDetail($event)">
+          <img :src="'/hephoon/dist'+img.url" :alt="img.name" @click="goToDetail($event)">
           <figcaption>{{img.name}}</figcaption>
         </el-card>
       </el-row>
