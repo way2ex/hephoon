@@ -8,25 +8,28 @@
       </el-breadcrumb>
     </div>
     <div class="main-content">
-      <section><h3>和风科技</h3></section>
+      <section><h3>远华盛科技</h3></section>
       <section><span>地址：</span><span>广东省深圳市龙岗区横岗街道安良社区福坑二路46号4楼</span></section>
       <section><span>电话：</span><span> 15919747583</span></section>
       <section><span>QQ：</span><span> 526093052</span></section>
       <section><span>微信：</span><span> zou930823</span></section>
       <section>
         加我微信请扫描二维码:</br></br>
-        <img src="/hephoon/dist/static/img/scancode.677b8fb.jpg" alt="和风科技-微信">
+        <img :src="baseUrl + 'static/img/scancode.677b8fb.jpg'" alt="远华盛科技-微信">
       </section>
     </div>
   </div>
 </template>
 
 <script>
+import config from '@/config'
+
 export default {
   name: 'contact',
   data () {
     return {
-      pageTitle: '联系我们'
+      pageTitle: '联系我们',
+      baseUrl: config.baseUrl
     }
   },
   created () {

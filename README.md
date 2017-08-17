@@ -1,6 +1,7 @@
-# hephoon
+# 远华盛
 
-> 和科技印
+> 远华盛科技
+[https://zhuqingguang.github.io/hephoon/dist](https://zhuqingguang.github.io/hephoon/dist)
 
 ## Build Setup
 

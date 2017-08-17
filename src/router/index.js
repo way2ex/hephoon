@@ -7,11 +7,12 @@ import UVDetail from '@/components/uv/UVDetail'
 import About from '@/components/about/about'
 import Contact from '@/components/contact/contact'
 
+import UV1 from '@/components/uv/UV1'
+
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  base: '/hephoon/dist/',
   routes: [
     {
       path: '/',
@@ -21,7 +22,13 @@ export default new Router({
     {
       path: '/uv',
       name: 'UV',
-      component: UV
+      component: UV,
+      children: [
+        {
+          path: '3',
+          component: UV1
+        }
+      ]
     },
     {
       path: '/jiguang',
@@ -39,7 +46,7 @@ export default new Router({
       component: Contact
     },
     {
-      path: '/uv-detail/:classtype/:url',
+      path: '/uv-detail/:classtype/:url',  // :classtype/:url
       name: 'uv-detail',
       component: UVDetail
     }

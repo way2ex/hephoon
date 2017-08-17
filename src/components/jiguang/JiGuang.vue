@@ -6,12 +6,13 @@
         <el-breadcrumb-item :to="{ path: '/' }">网站首页</el-breadcrumb-item>
         <el-breadcrumb-item :to="{ path: '/jiguang' }">{{pageTitle}}</el-breadcrumb-item>
       </el-breadcrumb>
-       <span class="menu-toggle" @click="menuShow = !menuShow"><i class="icon-reorder"></i>切换图片</span>
+       <span class="menu-toggle" @click.stop="menuShow = !menuShow" ontouchstart="event.stopPropagation();"><i class="icon-reorder"></i>切换图片</span>
     </div>
     <el-col :span="24" class="main-content">
     <el-col :span="4" :offset="1" class="menu-wrapper">
-      <el-menu default-active="0" class="class-menu" theme="light" @select="changeMenu" :class="{closed: !menuShow}">
-        <li class="menu-item el-menu-item">激光镭雕</li>
+      <el-menu default-active="0" class="class-menu" theme="light" 
+        @select="changeMenu" :class="{closed: !menuShow}" ontouchstart="event.stopPropagation();">
+        <el-menu-item index="nan" class="menu-item">激光镭雕</el-menu-item>
         <el-menu-item index="0" class="menu-item">激光镭雕应用</el-menu-item>
         <el-menu-item index="1" class="menu-item">样品展示</el-menu-item>
       </el-menu>
@@ -26,7 +27,7 @@
       </div>
       <el-row class="wrapper">
         <el-card class="figure-wrapper" v-for="(img, index) in currentImgGroup" :key="index">
-          <img :src="'/hephoon/dist'+img.url" :alt="img.name">
+          <img :src="baseUrl+img.url" :alt="img.name">
           <figcaption>{{img.name}}</figcaption>
         </el-card>
       </el-row>
@@ -43,6 +44,7 @@
 
 <script>
 import $ from 'jquery'
+import config from '@/config'
 
 export default {
   name: 'jiguang',
@@ -52,18 +54,23 @@ export default {
       menuShow: false,
       // 配置请求的json路径
       config: {
-        baseUrl: '/hephoon/dist/static/data/',
+        baseUrl: config.baseUrl + '/static/data/',
         urls: [
           'jiguang/yingyong.json',
           'jiguang/yangpin.json'
         ]
       },
+      baseUrl: config.baseUrl,
       imgs: [],
       currentImgGroup: []
       // 分页信息
     }
   },
   created () {
+    var _this = this
+    document.body.addEventListener('touchstart', function (event) {
+      _this.menuShow = false
+    })
     this.getPics(this.config.baseUrl + this.config.urls[0])
   },
   computed: {
@@ -90,8 +97,10 @@ export default {
       this.currentImgGroup = this.imgs[currentPage - 1]
     },
     changeMenu (index, indexPath) {
-      this.getPics(this.config.baseUrl + this.config.urls[index])
-      this.menuShow = !this.menuShow
+      if (typeof +index === 'number') {
+        this.getPics(this.config.baseUrl + this.config.urls[index])
+        this.menuShow = !this.menuShow
+      }
     },
     /**
       * 将数组分割为每6个一组

@@ -2,28 +2,31 @@
   <div id="app">
     <div class="header-wrapper">
       <header class="top-header">
-      <h1 class="header-logo">
-        <img src="./assets/header-logo.jpg" alt="和风科技">
-        <i class="icon-reorder" @click="isNavShow = !isNavShow"></i>
-      </h1>
-      <el-menu :default-active="activeIndex" class="top-nav" :class="{hidden: !isNavShow}" @select="handleSelect">
-        <el-menu-item index="1" class="top-nav-item">
-          <router-link to="/">网站首页</router-link>
-        </el-menu-item>
-        <el-menu-item class="top-nav-item" index="2">
-          <router-link to="/uv">UV打印产品</router-link>
-        </el-menu-item>
-        <el-menu-item class="top-nav-item" index="3">
-          <router-link to="/jiguang">激光镭雕</router-link>
-        </el-menu-item>
-        <el-menu-item class="top-nav-item" index="4">
-          <router-link to="/about">关于我们</router-link>    
-        </el-menu-item>
-        <el-menu-item class="top-nav-item" index="5">
-          <router-link to="/contact">联系我们</router-link>    
-        </el-menu-item>
-      </el-menu>
-    </header>
+        <h1 class="header-logo" >
+          <img src="./assets/header-logo.png" alt="远华盛科技">
+          <a class="btn-top-menu" @click.stop="isNavShow = !isNavShow" ontouchstart="event.stopPropagation();" >
+            <i class="icon-reorder"></i>
+          </a>
+        </h1>
+        <el-menu :default-active="activeIndex" class="top-nav" :class="{hidden: !isNavShow}" 
+          @select="handleSelect" id="top-menu" ontouchstart="event.stopPropagation();">
+          <el-menu-item index="1" class="top-nav-item" style="padding:0;">
+            <router-link to="/" style="padding: 0 20px;">网站首页</router-link>
+          </el-menu-item>
+          <el-menu-item class="top-nav-item" index="2" style="padding:0;">
+            <router-link to="/uv" style="padding:0 20px;">UV打印产品</router-link>
+          </el-menu-item>
+          <el-menu-item class="top-nav-item" index="3" style="padding:0;">
+            <router-link to="/jiguang" style="padding:0 20px;">激光镭雕</router-link>
+          </el-menu-item>
+          <el-menu-item class="top-nav-item" index="4" style="padding:0;">
+            <router-link to="/about" style="padding:0 20px;">关于我们</router-link>    
+          </el-menu-item>
+          <el-menu-item class="top-nav-item" index="5" style="padding:0;">
+            <router-link to="/contact" style="padding:0 20px;">联系我们</router-link>    
+          </el-menu-item>
+        </el-menu>
+      </header>
     </div>
     <div class="carousel">
       <el-carousel class="carousel-wrapper">
@@ -49,7 +52,7 @@
       <div class="company-information text-center">
         <div class="base-information">
           <div class="company-name">
-            <span>和风科技</span>
+            <span>远华盛科技</span>
           </div>
       <div class="telephone-number">
             <span>手机:</span><span> 15919747583</span>
@@ -80,18 +83,56 @@
 </template>
 
 <script>
+import $ from 'jquery'
+window.$ = $
 export default {
   name: 'app',
   data () {
     return {
-      activeIndex: '2',
-      currentPageTitle: '首页',
+      activeIndex: '1',
+      currentPageTitle: '网站首页',
       isNavShow: false
     }
+  },
+  created () {
+    var _this = this
+    document.body.addEventListener('touchstart', function (event) {
+      _this.isNavShow = false
+      console.log(event.target)
+    })
+    this.changeCurActIndex()
   },
   methods: {
     handleSelect (index, indexPath) {
       this.activeIndex = index
+      this.isNavShow = !this.isNavShow
+    },
+    clickMenu (event) {
+      event.stopPropagation()
+    },
+    changeCurActIndex () {
+      var _this = this
+      var pathname = document.location.pathname
+      if (pathname === '') {
+        return
+      }
+      var firstPath = pathname.slice(1).split('/')[0]
+      switch (firstPath) {
+        case 'uv': _this.activeIndex = '2'
+          break
+        case 'jiguang': _this.activeIndex = '3'
+          break
+        case 'about': _this.activeIndex = '4'
+          break
+        case 'contact': _this.activeIndex = '5'
+          break
+        default: _this.activeIndex = '1'
+      }
+    }
+  },
+  watch: {
+    '$route': function (to, from) {
+      console.log(to)
     }
   }
 }
@@ -107,7 +148,7 @@ export default {
 }
 
 $smLogoHeight: 70px;
-$lgLogoHeight: 100px;
+$lgLogoHeight: 110px;
 // base theme color
 $themeColor: #ff6c60;
 @media (max-width: 767px) {
@@ -124,19 +165,31 @@ $themeColor: #ff6c60;
       height: $smLogoHeight;
       text-align: center;
       background: #fff;
+      margin: 0;
 
       img {
         display: inline-block;
         height: $smLogoHeight;
       }
-      i.icon-reorder {
+      a.btn-top-menu {
         position: absolute;
-        top: 45%;
-        right: 10%;
+        top: 20%;
+        right: 2%;
+        padding: 10px 20px;
         font-size: 18px;
         font-weight: 800; 
+        border: none;
+        background: transparent;
         color: $themeColor;
         cursor: pointer;
+        outline: none;
+      }
+      a.btn-top-menu:active, a.btn-top-menu:focus, a.btn-top-menu:visited {
+        background: #fff;
+        outline: none;
+      }
+      i.icon-reorder:active {
+        background: #fff;
       }
     }
     .top-nav {
@@ -146,6 +199,9 @@ $themeColor: #ff6c60;
       .top-nav-item {
         width: 100%;
         a {
+          // height: 100%;
+          // width: 100%;
+          display: block;
           color: #555;
         }
       }
@@ -177,7 +233,8 @@ $themeColor: #ff6c60;
       }
     }
     .weichat-code img {
-      width: 80%;
+      width: 50%;
+      max-width: 200px;
     }
     .address {
       width: 80%;
@@ -207,13 +264,17 @@ $themeColor: #ff6c60;
       display: inline-block;
       height: $lgLogoHeight;
       background: #fff;
+      margin: 0;
       img {
         display: inline-block;
         height: $lgLogoHeight;
       }
-      i.icon-reorder {
+      .btn-top-menu{
         display: none;
       }
+      // i.icon-reorder {
+      //   display: none;
+      // }
     }
     .top-nav {
       width: auto;
@@ -231,19 +292,17 @@ $themeColor: #ff6c60;
         padding: 0 10px;
         border-radius: 5px;
         a {
+          display: block;
           color: #555;
         }
       }
       .is-active {
         background-color: $themeColor;
-        a {
-
-        }
       }
     }
   }
   .carousel {
-    margin: 20px 0px;
+    margin: 0px 0px 20px 0;
     height: 350px;
     .carousel-wrapper {
       height: 350px;

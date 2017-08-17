@@ -2,15 +2,17 @@
 <div class="main-wrapper">
  <div class="title-wrapper">
     <h2 class="nav-title">{{pageTitle}}</h2>
+    <router-view></router-view>
     <el-breadcrumb separator="/" class="breadcrumb">
       <el-breadcrumb-item :to="{ path: '/' }">网站首页</el-breadcrumb-item>
       <el-breadcrumb-item :to="{ path: '/uv' }">{{pageTitle}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <span class="menu-toggle" @click="menuShow = !menuShow"><i class="icon-reorder"></i> 切换类目</span>
+    <span class="menu-toggle" @click.stop="menuShow = !menuShow"  ontouchstart="event.stopPropagation();"><i class="icon-reorder"></i> 切换类目</span>
   </div>
   <el-col :span="24" class="main-content">
     <el-col :span="4" :offset="1" class="menu-wrapper">
-      <el-menu default-active="0" class="class-menu" theme="light" @select="changeMenu" :class="{closed: !menuShow}">
+      <el-menu default-active="0" class="class-menu" theme="light" 
+        @select="changeMenu" :class="{closed: !menuShow}" ontouchstart="event.stopPropagation();">
         <el-menu-item index="0" class="menu-item">产品分类</el-menu-item>
         <el-menu-item index="1" class="menu-item">亚克力UV打印</el-menu-item>
         <el-menu-item index="2" class="menu-item">PS板UV打印</el-menu-item>
@@ -24,7 +26,7 @@
     <el-col :span="18" class="main-wrapper">
       <el-row class="wrapper">
         <el-card class="figure-wrapper" v-for="(img, index) in currentImgGroup" :key="index">
-          <img :src="'/hephoon/dist'+img.url" :alt="img.name" @click="goToDetail($event)">
+          <img :src="baseUrl + img.url" :alt="img.name" @click="goToDetail($event)">
           <figcaption>{{img.name}}</figcaption>
         </el-card>
       </el-row>
@@ -41,6 +43,7 @@
 
 <script>
 import $ from 'jquery'
+import config from '@/config'
 
 export default {
   name: 'UV',
@@ -50,7 +53,7 @@ export default {
       menuShow: false,
       // 配置请求的json路径
       config: {
-        baseUrl: '/hephoon/dist/static/data/',
+        baseUrl: config.baseUrl + '/static/data/',
         urls: [
           'UVPrint/all.json',
           'UVPrint/yakeli.json',
@@ -62,6 +65,7 @@ export default {
           'UVPrint/pige.json'
         ]
       },
+      baseUrl: config.baseUrl,
       imgs: [],
       currentImgGroup: [],
       classIndex: 0
@@ -69,11 +73,20 @@ export default {
     }
   },
   created () {
+    var _this = this
+    document.body.addEventListener('touchstart', function (event) {
+      _this.menuShow = false
+    })
     this.getPics(this.config.baseUrl + this.config.urls[0])
   },
   computed: {
     totalPages: function () {
       return this.imgs.length * 6
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      console.log(`to: ${to} ++ from: ${from}`)
     }
   },
   methods: {
@@ -101,7 +114,7 @@ export default {
     // 跳转到图片详情
     goToDetail (event) {
       var url = encodeURIComponent(event.target.getAttribute('src'))
-      // this.$router.push({path: '/uv-detail', params: {classtype: 0, url: url}})
+      // this.$router.push({path: 'uv-detail', params: {classtype: 0, url: url}})
       this.$router.push({path: '/uv-detail/' + this.classIndex + '/' + url})
     },
     /**

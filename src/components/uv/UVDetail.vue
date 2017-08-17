@@ -10,7 +10,7 @@
     <div class="main-content">
       <div class="figure-wrap">
         <figure>
-          <img :src="'/hephoon/dist'+imgUrl" alt="className">
+          <img :src="imgUrl" alt="className">
         </figure>
       </div>
       <div class="desc-wrap">
@@ -25,6 +25,8 @@
 
 <script>
 import $ from 'jquery'
+import config from '@/config'
+
 export default {
   name: 'uv-detail',
   data () {
@@ -32,15 +34,17 @@ export default {
       classMap: ['亚克力UV打印', 'PS板UV打印', '雪弗板UV打印', '玻璃UV打印', '石材UV打印', '金属UV打印', '皮革UV打印'],
       className: '',
       imgUrl: '',
-      description: ''
+      description: '',
+      baseUrl: config.baseUrl
     }
   },
   created () {
+    console.log(this.$route.params)
     var _this = this
     this.className = this.classMap[this.$route.params.classtype]
-    this.imgUrl = decodeURIComponent(this.$route.params.url)
+    this.imgUrl = this.baseUrl + decodeURIComponent(this.$route.params.url)
     $.ajax({
-      url: '/hephoon/dist/static/data/UVDetail/description.json',
+      url: config.baseUrl + '/static/data/UVDetail/description.json',
       type: 'get',
       dataType: 'json',
       success: function (data) {
@@ -50,6 +54,9 @@ export default {
   },
   methods: {},
   watch: {
+    '$route' (to, from) {
+      console.log(to)
+    }
   }
 }
 </script>
@@ -94,9 +101,6 @@ export default {
     padding: 40px 0;
     margin-right: 50px;
     text-align: center;
-    img {
-      // margin: 
-    }
   }
   .desc-wrap {
     float: left;
