@@ -1,7 +1,7 @@
 # 远华盛
 
 > 远华盛科技
-[https://zhuqingguang.github.io/hephoon/dist](https://zhuqingguang.github.io/hephoon/dist)
+[http://www.hephoon.com/](http://www.hephoon.com/)
 
 ## Build Setup
 
